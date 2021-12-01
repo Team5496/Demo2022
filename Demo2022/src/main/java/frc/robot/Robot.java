@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -21,7 +25,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  TalonSRX talonSRX = new TalonSRX(0);
+  XboxController driver = new XboxController(0);
+
+  TalonSRX talonSRX_0 = new TalonSRX(0);
+  SensorCollection collection = talonSRX_0.getSensorCollection();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -32,6 +39,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    talonSRX_0.set(ControlMode.PercentOutput, 0);
   }
 
   /**
@@ -48,6 +57,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    talonSRX_0.set(ControlMode.PercentOutput, driver.getRawAxis(GenericHID.Hand.kLeft.value));
+
+    if (driver.getAButtonPressed()) {
+      System.out.println(collection.getQuadraturePosition());
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
