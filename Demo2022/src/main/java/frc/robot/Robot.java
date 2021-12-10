@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
 
   XboxController driver = new XboxController(0);
 
-  TalonSRX talonSRX_0 = new TalonSRX(0);
+  TalonSRX talonSRX_0 = new TalonSRX(1);
   SensorCollection collection = talonSRX_0.getSensorCollection();
 
   /**
