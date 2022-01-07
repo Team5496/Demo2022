@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
     if (driver.getAButtonPressed()) {
       System.out.println(collection.getQuadraturePosition());
     }
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
